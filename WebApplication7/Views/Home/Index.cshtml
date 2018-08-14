@@ -1,0 +1,73 @@
+﻿@using WebApplication7.Data.Models;
+
+@model Event
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<form>
+    <input asp-for="start" id="startEvent" />
+    <input asp-for="end" id="endEvent" />
+    <input type="button" id="insert"
+           value="Insert" />
+</form>
+
+<div id="test">
+    
+</div>
+
+
+<div id="msg"></div>
+
+@*<script>
+    $(document).ready(function () {
+        $("#test").load("Home/GetAllAppointment")
+       
+    });
+
+</script>*@
+
+
+<script>
+    $(document).ready(function () {
+        $("#test").load("Home/GetAllAppointment");
+
+    }
+  
+</script>
+
+
+<script>
+
+
+
+
+
+    $("#insert").click(function () {
+        var options = {};
+        options.url = "Home/AddEvent";
+        options.type = "POST";
+
+        var obj = {};
+        obj.start = $("#startEvent").val();
+        obj.end = $("#endEvent").val();
+      
+        debugger;
+        options.data = JSON.stringify(obj);
+        options.contentType = "application/json";
+        options.dataType = "json";
+
+        
+        options.success = function (msg) {
+          
+            $("#msg").html(msg);
+            $("#test").load("Home/GetAllAppointment");
+        };
+        options.error = function () {
+            $("#msg").html("Error while making Ajax call!");
+        };
+        $.ajax(options);
+    });
+</script>
